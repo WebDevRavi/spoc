@@ -79,7 +79,7 @@ export default function Index() {
               clustering and heatmap (placeholder)
             </li>
             <li className="flex items-start gap-2">
-              <span className="mt-1 text-emerald-600">✓</span> i18n (EN/HI) and
+              <span className="mt-1 text-emerald-600">✓</span> i (EN/HI) and
               Dark mode
             </li>
           </ul>
