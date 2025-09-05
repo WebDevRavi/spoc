@@ -14,12 +14,17 @@ export function Topbar() {
     return () => clearInterval(id);
   }, []);
 
-  const unread = useMemo(() => notifications.filter((n) => !n.read).length, [notifications]);
+  const unread = useMemo(
+    () => notifications.filter((n) => !n.read).length,
+    [notifications],
+  );
 
   return (
     <header className="h-14 border-b bg-background">
       <div className="h-full px-4 flex items-center justify-between">
-        <div className="font-semibold">{user ? `Welcome, ${user.username}` : ""}</div>
+        <div className="font-semibold">
+          {user ? `Welcome, ${user.username}` : ""}
+        </div>
         <div className="flex items-center gap-2">
           <button
             aria-label="toggle theme"
@@ -55,22 +60,31 @@ export function Topbar() {
             </button>
             {open && (
               <div className="absolute right-0 mt-2 w-80 rounded-md border bg-popover p-2 shadow-lg z-10">
-                <div className="mb-1 text-xs font-medium text-muted-foreground">Notifications</div>
+                <div className="mb-1 text-xs font-medium text-muted-foreground">
+                  Notifications
+                </div>
                 <ul className="max-h-64 overflow-auto space-y-1">
                   {notifications.length === 0 && (
-                    <li className="text-sm text-muted-foreground">No notifications</li>
+                    <li className="text-sm text-muted-foreground">
+                      No notifications
+                    </li>
                   )}
                   {notifications.map((n) => (
                     <li key={n.id} className="rounded-md p-2 hover:bg-muted">
                       <div className="text-sm">{n.message}</div>
-                      <div className="text-[10px] text-muted-foreground">{new Date(n.createdAt).toLocaleString()}</div>
+                      <div className="text-[10px] text-muted-foreground">
+                        {new Date(n.createdAt).toLocaleString()}
+                      </div>
                     </li>
                   ))}
                 </ul>
               </div>
             )}
           </div>
-          <button className="rounded-md border px-3 py-1 hover:bg-muted" onClick={logout}>
+          <button
+            className="rounded-md border px-3 py-1 hover:bg-muted"
+            onClick={logout}
+          >
             Logout
           </button>
         </div>

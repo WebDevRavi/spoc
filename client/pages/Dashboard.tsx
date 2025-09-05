@@ -8,15 +8,35 @@ export default function Dashboard() {
   return (
     <div className="space-y-6">
       <header>
-        <h1 className="text-2xl font-bold tracking-tight">City Operations Dashboard</h1>
-        <p className="text-muted-foreground">Monitor reports, progress, and performance at a glance.</p>
+        <h1 className="text-2xl font-bold tracking-tight">
+          City Operations Dashboard
+        </h1>
+        <p className="text-muted-foreground">
+          Monitor reports, progress, and performance at a glance.
+        </p>
       </header>
 
       <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <KpiCard title="Total Reports" value={kpis.total.toString()} subtitle="All-time" />
-        <KpiCard title="Resolved" value={kpis.resolved.toString()} subtitle="Closed & Resolved" />
-        <KpiCard title="Pending" value={kpis.pending.toString()} subtitle="Open & In Progress" />
-        <KpiCard title="Avg Resolution (hrs)" value={kpis.avgResolutionHours.toString()} subtitle="Last 30 days" />
+        <KpiCard
+          title="Total Reports"
+          value={kpis.total.toString()}
+          subtitle="All-time"
+        />
+        <KpiCard
+          title="Resolved"
+          value={kpis.resolved.toString()}
+          subtitle="Closed & Resolved"
+        />
+        <KpiCard
+          title="Pending"
+          value={kpis.pending.toString()}
+          subtitle="Open & In Progress"
+        />
+        <KpiCard
+          title="Avg Resolution (hrs)"
+          value={kpis.avgResolutionHours.toString()}
+          subtitle="Last 30 days"
+        />
       </section>
 
       <section className="grid gap-6 lg:grid-cols-3">
@@ -25,9 +45,21 @@ export default function Dashboard() {
             <h2 className="text-lg font-semibold">Quick Actions</h2>
           </div>
           <div className="grid gap-3 sm:grid-cols-3">
-            <ActionCard to="/issues" title="View Issues" desc="Manage and filter all reports" />
-            <ActionCard to="/map" title="Go to Map" desc="Visualize hotspots & routes" />
-            <ActionCard to="/analytics" title="View Analytics" desc="Download CSV/PDF reports" />
+            <ActionCard
+              to="/issues"
+              title="View Issues"
+              desc="Manage and filter all reports"
+            />
+            <ActionCard
+              to="/map"
+              title="Go to Map"
+              desc="Visualize hotspots & routes"
+            />
+            <ActionCard
+              to="/analytics"
+              title="View Analytics"
+              desc="Download CSV/PDF reports"
+            />
           </div>
         </div>
         <div className="rounded-xl border bg-card p-4 shadow-sm">
@@ -37,9 +69,15 @@ export default function Dashboard() {
               <li key={i.id} className="rounded-md border p-3 hover:bg-muted">
                 <div className="flex items-center justify-between">
                   <div className="font-medium">{i.title}</div>
-                  <span className={`rounded-full px-2 py-0.5 text-xs ${statusBadge(i.status)}`}>{i.status}</span>
+                  <span
+                    className={`rounded-full px-2 py-0.5 text-xs ${statusBadge(i.status)}`}
+                  >
+                    {i.status}
+                  </span>
                 </div>
-                <div className="text-sm text-muted-foreground line-clamp-2">{i.description}</div>
+                <div className="text-sm text-muted-foreground line-clamp-2">
+                  {i.description}
+                </div>
                 <div className="mt-1 text-[11px] text-muted-foreground">
                   {new Date(i.updatedAt).toLocaleString()} • {i.location}
                 </div>
@@ -52,7 +90,15 @@ export default function Dashboard() {
   );
 }
 
-function KpiCard({ title, value, subtitle }: { title: string; value: string; subtitle: string }) {
+function KpiCard({
+  title,
+  value,
+  subtitle,
+}: {
+  title: string;
+  value: string;
+  subtitle: string;
+}) {
   return (
     <div className="rounded-xl border bg-card p-4 shadow-sm">
       <div className="text-sm text-muted-foreground">{title}</div>
@@ -62,15 +108,28 @@ function KpiCard({ title, value, subtitle }: { title: string; value: string; sub
   );
 }
 
-function ActionCard({ to, title, desc }: { to: string; title: string; desc: string }) {
+function ActionCard({
+  to,
+  title,
+  desc,
+}: {
+  to: string;
+  title: string;
+  desc: string;
+}) {
   return (
-    <Link to={to} className="group rounded-xl border p-4 transition-colors hover:bg-secondary">
+    <Link
+      to={to}
+      className="group rounded-xl border p-4 transition-colors hover:bg-secondary"
+    >
       <div className="flex items-center justify-between">
         <div>
           <div className="font-semibold">{title}</div>
           <div className="text-sm text-muted-foreground">{desc}</div>
         </div>
-        <span className="text-2xl transition-transform group-hover:translate-x-1">→</span>
+        <span className="text-2xl transition-transform group-hover:translate-x-1">
+          →
+        </span>
       </div>
     </Link>
   );

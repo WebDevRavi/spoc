@@ -5,7 +5,12 @@ import { findUserByCredentials, registerUser } from "@/data/mock";
 interface AuthState {
   user: User | null;
   login: (username: string, email: string) => Promise<User | null>;
-  register: (username: string, email: string, role: Role, departmentId?: string) => Promise<User>;
+  register: (
+    username: string,
+    email: string,
+    role: Role,
+    departmentId?: string,
+  ) => Promise<User>;
   logout: () => void;
 }
 
@@ -31,7 +36,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return u;
   };
 
-  const registerFn = async (username: string, email: string, role: Role, departmentId?: string) => {
+  const registerFn = async (
+    username: string,
+    email: string,
+    role: Role,
+    departmentId?: string,
+  ) => {
     const u = registerUser(username, email, role, departmentId);
     setUser(u);
     return u;
@@ -39,7 +49,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const logout = () => setUser(null);
 
-  const value = useMemo(() => ({ user, login, register: registerFn, logout }), [user]);
+  const value = useMemo(
+    () => ({ user, login, register: registerFn, logout }),
+    [user],
+  );
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 

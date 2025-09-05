@@ -168,7 +168,12 @@ export function setDB(db: MockDB) {
   localStorage.setItem(KEY, JSON.stringify(db));
 }
 
-export function registerUser(username: string, email: string, role: Role, departmentId?: string): User {
+export function registerUser(
+  username: string,
+  email: string,
+  role: Role,
+  departmentId?: string,
+): User {
   const db = getDB();
   const newUser: User = { id: uid("usr"), username, email, role, departmentId };
   db.users.push(newUser);
@@ -176,15 +181,25 @@ export function registerUser(username: string, email: string, role: Role, depart
   return newUser;
 }
 
-export function findUserByCredentials(username: string, email: string): User | undefined {
+export function findUserByCredentials(
+  username: string,
+  email: string,
+): User | undefined {
   const db = getDB();
   return db.users.find((u) => u.username === username && u.email === email);
 }
 
-export function addIssue(partial: Omit<Issue, "id" | "createdAt" | "updatedAt">): Issue {
+export function addIssue(
+  partial: Omit<Issue, "id" | "createdAt" | "updatedAt">,
+): Issue {
   const db = getDB();
   const now = new Date().toISOString();
-  const issue: Issue = { id: uid("iss"), createdAt: now, updatedAt: now, ...partial };
+  const issue: Issue = {
+    id: uid("iss"),
+    createdAt: now,
+    updatedAt: now,
+    ...partial,
+  };
   db.issues.push(issue);
   pushNotification(`New issue reported: ${issue.title}`);
   setDB(db);
@@ -195,22 +210,37 @@ export function updateIssue(id: string, updates: Partial<Issue>) {
   const db = getDB();
   const idx = db.issues.findIndex((i) => i.id === id);
   if (idx === -1) return;
-  const next = { ...db.issues[idx], ...updates, updatedAt: new Date().toISOString() };
+  const next = {
+    ...db.issues[idx],
+    ...updates,
+    updatedAt: new Date().toISOString(),
+  };
   db.issues[idx] = next;
-  if (updates.status) pushNotification(`Issue ${id} status updated to ${updates.status}`);
+  if (updates.status)
+    pushNotification(`Issue ${id} status updated to ${updates.status}`);
   setDB(db);
 }
 
 export function getKPIs() {
   const db = getDB();
   const total = db.issues.length;
-  const resolved = db.issues.filter((i) => i.status === "resolved" || i.status === "closed").length;
+  const resolved = db.issues.filter(
+    (i) => i.status === "resolved" || i.status === "closed",
+  ).length;
   const pending = total - resolved;
   const avgResolutionHours = (() => {
-    const resolvedIssues = db.issues.filter((i) => i.status === "resolved" || i.status === "closed");
+    const resolvedIssues = db.issues.filter(
+      (i) => i.status === "resolved" || i.status === "closed",
+    );
     if (resolvedIssues.length === 0) return 0;
-    const diffs = resolvedIssues.map((i) => (new Date(i.updatedAt).getTime() - new Date(i.createdAt).getTime()) / 36e5);
-    return Math.round((diffs.reduce((a, b) => a + b, 0) / diffs.length) * 10) / 10;
+    const diffs = resolvedIssues.map(
+      (i) =>
+        (new Date(i.updatedAt).getTime() - new Date(i.createdAt).getTime()) /
+        36e5,
+    );
+    return (
+      Math.round((diffs.reduce((a, b) => a + b, 0) / diffs.length) * 10) / 10
+    );
   })();
   return { total, resolved, pending, avgResolutionHours };
 }
@@ -219,7 +249,10 @@ export function getRecentActivity(limit = 6) {
   const db = getDB();
   return db.issues
     .slice()
-    .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
+    .sort(
+      (a, b) =>
+        new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+    )
     .slice(0, limit);
 }
 
@@ -228,7 +261,12 @@ export function getDepartments() {
 }
 
 export function getNotifications(): NotificationItem[] {
-  return getDB().notifications.slice().sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+  return getDB()
+    .notifications.slice()
+    .sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+    );
 }
 
 export function markAllNotificationsRead() {
@@ -239,6 +277,11 @@ export function markAllNotificationsRead() {
 
 export function pushNotification(message: string) {
   const db = getDB();
-  db.notifications.push({ id: uid("ntf"), message, createdAt: new Date().toISOString(), read: false });
+  db.notifications.push({
+    id: uid("ntf"),
+    message,
+    createdAt: new Date().toISOString(),
+    read: false,
+  });
   setDB(db);
 }

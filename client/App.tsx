@@ -32,7 +32,11 @@ const App = () => (
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<Index />} />
-                <Route element={<ProtectedRoute allow={["admin", "staff", "user"]} />}>
+                <Route
+                  element={
+                    <ProtectedRoute allow={["admin", "staff", "user"]} />
+                  }
+                >
                   <Route
                     path="/dashboard"
                     element={

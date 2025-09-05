@@ -6,7 +6,8 @@ const STRINGS: Record<Locale, Record<string, string>> = {
   en: {
     app_title: "SPOC Civic Issue Portal",
     tagline: "Report. Resolve. Renew.",
-    landing_intro: "A single point of contact to report civic issues and track their resolution.",
+    landing_intro:
+      "A single point of contact to report civic issues and track their resolution.",
     get_started: "Get Started",
     login: "Login",
     register: "Register",
@@ -23,7 +24,8 @@ const STRINGS: Record<Locale, Record<string, string>> = {
   hi: {
     app_title: "एसपीओसी नागरिक समस्या पोर्टल",
     tagline: "रिपोर्ट करें. समाधान करें. नवीनीकरण क���ें.",
-    landing_intro: "नागरिक समस्याओं की रिपोर्ट और समाधान की ट्रैकिंग के लिए एकल संपर्क बिंदु।",
+    landing_intro:
+      "नागरिक समस्याओं की रिपोर्ट और समाधान की ट्रैकिंग के लिए एकल संपर्क बिंदु।",
     get_started: "शुरू करें",
     login: "लॉगिन",
     register: "पंजीकरण",
