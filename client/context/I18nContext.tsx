@@ -4,7 +4,7 @@ export type Locale = "en" | "hi";
 
 const STRINGS: Record<Locale, Record<string, string>> = {
   en: {
-    app_title: "SPOC Civic Issue Portal",
+    app_title: "Civic Issue Portal",
     tagline: "Report. Resolve. Renew.",
     landing_intro:
       "A single point of contact to report civic issues and track their resolution.",
